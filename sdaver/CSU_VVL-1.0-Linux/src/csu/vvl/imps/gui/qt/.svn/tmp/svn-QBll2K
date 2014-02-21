@@ -1,0 +1,242 @@
+// -*- mode: c++; c-basic-offset: 4; c-basic-style: bsd; -*-
+/*
+*   This program is free software; you can redistribute it and/or
+*   modify
+*   it under the terms of the GNU Lesser General Public License as
+*   published by the Free Software Foundation; either version 3.0 of
+*   the License, or (at your option) any later version.
+*
+*   This program is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU Lesser General Public License for more details.
+*
+*   You should have received a copy of the GNU Lesser General Public
+*   License along with this library; if not, write to the Free Software
+*   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+*   02111-1307 USA
+*
+*   This file is part of the Aspect-Oriented GUI Verification Library,
+*   http://sourceforge.net/projects/guiverification/
+*
+*/
+
+#include "qt_elementabstractor.h"
+
+
+#include <QApplication>
+#include <QSpinBox>
+#include <QFrame>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QPlainTextEdit>
+#include <QComboBox>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <boost/lexical_cast.hpp>
+
+#include "qt_abstractionresult.h"
+#include "csu/qt/utils/qt_utils.h"
+
+namespace csu {
+namespace vvl {
+namespace gui {
+namespace qt {
+
+using namespace csu::vvl::framework;
+
+//In this constructor we explicitly store de class name of the registrable classes
+QtElementAbstractor::QtElementAbstractor(VerificationContextPtr context):GenericElementAbstractor(context)
+{
+    _ilog::abs <<"QtElementAbstractor: Registering Classes"<<std::endl;
+
+    registerClass(new std::string(QSpinBox::staticMetaObject.className()));
+    registerClass(new std::string(QLineEdit::staticMetaObject.className()));
+    registerClass(new std::string(QTextEdit::staticMetaObject.className()));
+    registerClass(new std::string(QPlainTextEdit::staticMetaObject.className()));
+    registerClass(new std::string(QComboBox::staticMetaObject.className()));
+    registerClass(new std::string(QPushButton::staticMetaObject.className()));
+    registerClass(new std::string(QCheckBox::staticMetaObject.className()));
+    registerClass(new std::string(QRadioButton::staticMetaObject.className()));
+
+    /*registerClass(&boost::lexical_cast<std::string>(QSpinBox::staticMetaObject.className()));
+    registerClass(&boost::lexical_cast<std::string>(QLineEdit::staticMetaObject.className()));
+    registerClass(&boost::lexical_cast<std::string>(QComboBox::staticMetaObject.className()));
+    registerClass(&boost::lexical_cast<std::string>(QPushButton::staticMetaObject.className()));
+    registerClass(&boost::lexical_cast<std::string>(QCheckBox::staticMetaObject.className()));
+    registerClass(&boost::lexical_cast<std::string>(QRadioButton::staticMetaObject.className()));*/
+}
+
+//Get the complete name space of a widget
+QString * getNameSpaceName(QWidget * w){
+
+    QWidget *parentWidget=w->window();
+    if (parentWidget->objectName().toStdString()==""){
+        parentWidget->setObjectName("pedroparent"); TODO parent no puede tener un nombre vacío
+    }
+
+    QWidget * nextParent=NULL;
+
+    /// return if the widget has no name
+    if (w->objectName().toStdString() == "")
+        return NULL;
+
+    /// set my name first
+    std::string path = w->objectName().toStdString();
+
+    /// set the name of parents recursively
+    QWidget * nextParent = w;
+    while ((nextParent = nextParent->window()))//parentWidget()))
+    {
+        //set a name to the parent if it has not one
+        //csu::qt::qt_utils::setWidgetUniqueName(dynamic_cast<QWidget*>(nextParent));
+        //add the name to the path
+        path = nextParent->objectName().toStdString() + SEPARATOR + path;
+    }
+
+    /// return
+    if (path != w->objectName().toStdString())
+        return new QString(path.c_str());
+    else
+        return NULL;
+}
+
+void QtElementAbstractor::updateElements(void)
+{
+    elementMap_.clear();
+    elementNameSet_.clear();
+
+    _ilog::abs <<"(QtElementAbstractor::updateElements) Filtering GUI Elements."<<std::endl;
+
+    //Getting all widgets from the application
+    foreach ( QWidget *w, QApplication::allWidgets() )
+    {
+        //Filtering
+        std::string className = boost::lexical_cast<std::string>(w->metaObject()->className());
+        QString * elementName;
+
+        //std::cout << "@@" << className << "@@" << w->objectName().toStdString() << std::endl;
+
+        //If it is registrable (it ocurrs when the widgets class is a registrable class)
+        //If it is visible
+        if ((isRegistrable(&className)) && w->objectName().toStdString() != ""){// && w->isVisible()){
+
+            // add an unique name if the widget has no name
+            //csu::qt::qt_utils::setWidgetUniqueName(w);
+
+            elementName = getNameSpaceName(w);
+            std::cout << "@@" << elementName->toStdString()  << std::endl;
+
+            //If it has a proper namespace then continue
+            if (!elementName)
+                continue;
+
+            Qt_AbstractionResult * abres;
+            if (className==QLineEdit::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QLineEdit *>(w));
+            } else if (className==QTextEdit::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QTextEdit *>(w));
+            } else if (className==QPlainTextEdit::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QPlainTextEdit *>(w));
+            }else if (className==QSpinBox::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QSpinBox *>(w));
+            }else if (className==QComboBox::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QComboBox *>(w));
+            }else if (className==QPushButton::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QPushButton *>(w));
+            }else if (className==QCheckBox::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QCheckBox *>(w));
+            }else if (className==QRadioButton::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QRadioButton *>(w));
+            }else{
+                continue;
+            }
+            //Registering the abstraction result inside map indexed by the abstraction result id
+            elementMap_[abres->id()]=abres;
+            //Registering the name of the element in a set of names
+            elementNameSet_.insert(elementName->toStdString());
+        }
+    }
+}
+
+//This method generate an abstraction result from a boost::any object
+const GenericAbstractionResult * QtElementAbstractor::getElementAbstraction(const boost::any &anyObj)
+{
+    if (anyObj.empty())
+        return NULL;
+
+    //The Event Abstractor inside the event filter function cast QObjects to boost::any, and some of them are not widgets
+    QObject * obj=boost::any_cast<QObject *>(anyObj);
+    std::string fullName=obj->objectName().toStdString();
+
+    QWidget * w=dynamic_cast<QWidget *>(obj);
+
+    if (w){
+        QString * completeName=getNameSpaceName(w);
+        if (completeName)
+            fullName=getNameSpaceName(w)->toStdString();
+    }
+
+    Qt_AbstractionResult * rep=new Qt_AbstractionResult(fullName,anyObj);
+
+    ElementMap::iterator it=elementMap_.begin();
+    for (;it!=elementMap_.end();it++)
+    {
+        if (it->first==rep->id())
+            return (it->second);
+    }
+    return NULL;
+}
+
+///
+///
+void QtElementAbstractor::listElementsName()
+{
+
+    _ilog::abs << "(QtElementAbstractor::listElementsName)"<<std::endl;
+
+    //Getting all widgets from the application
+    foreach ( QWidget *w, QApplication::allWidgets() )
+    {
+        //Filtering
+        std::string className = boost::lexical_cast<std::string>(w->metaObject()->className());
+        QString * elementName;
+
+        //If it is registrable, (it ocurrs when the widgets class is a registrable class), if it is visible and it has not
+        //an empty name (which it is typical of auxiliar widgets)
+
+        if (w->objectName().toStdString()!=""){
+            elementName=getNameSpaceName(w);
+            //If it has a proper namespace then continue
+            if (!elementName)
+                continue;
+
+            Qt_AbstractionResult * abres;
+            if (className==QLineEdit::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QLineEdit *>(w));
+            }else if (className==QSpinBox::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QSpinBox *>(w));
+            }else if (className==QComboBox::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QComboBox *>(w));
+            }else if (className==QPushButton::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QPushButton *>(w));
+            }else if (className==QCheckBox::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QCheckBox *>(w));
+            }else if (className==QRadioButton::staticMetaObject.className()){
+                abres=new Qt_AbstractionResult(elementName->toStdString(),dynamic_cast<QRadioButton *>(w));
+            }else{
+                continue;
+            }
+            //Registering the abstraction result inside map indexed by the abstraction result id
+            _ilog::abs << elementName->toStdString() << std::endl;
+        }
+    }
+}
+
+
+} //qt
+} //gui
+} //vvl
+} //csu
+

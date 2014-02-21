@@ -1,0 +1,90 @@
+// -*- mode: c++; c-basic-offset: 4; c-basic-style: bsd; -*-
+/*
+ *   This program is free software; you can redistribute it and/or
+ *   modify
+ *   it under the terms of the GNU Lesser General Public License as
+ *   published by the Free Software Foundation; either version 3.0 of
+ *   the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Lesser General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Lesser General Public
+ *   License along with this library; if not, write to the Free Software
+ *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
+ *   02111-1307 USA
+ *
+ *   This file is part of the OHTu-Open Usability Evaluation Framework,
+ *   http://sourceforge.net/projects/ohtu/
+ *
+ */
+
+// AccessibleRole
+ROLE(AccessibleRole)
+ROLE_PROPERTY (AccessibleRole, accessibleName, std::string)
+ROLE_PROPERTY (AccessibleRole, accessibleDescription, std::string)
+ROLE_END
+
+// SliderRole
+ROLE(SliderRole)
+ROLE_PROPERTY (SliderRole, sliderMinValue, int)
+ROLE_PROPERTY (SliderRole, sliderMaxValue, int)
+ROLE_PROPERTY (SliderRole, sliderDefaultValue, int)
+ROLE_PROPERTY (SliderRole, sliderStep, int)
+ROLE_END
+
+// CheckableRole
+ROLE(CheckableRole)
+ROLE_PROPERTY (CheckableRole, checkableChecked, bool)
+ROLE_END
+
+// ExcludableRole
+ROLE(ExcludableRole)
+ROLE_END
+
+// EditableRole
+ROLE(EditableRole)
+ROLE_PROPERTY (EditableRole, editableDefaultText, std::string)
+ROLE_PROPERTY (EditableRole, editableReadOnly, bool)
+ROLE_PROPERTY (EditableRole, editableLength, int) // unsigned int? size_t?
+ROLE_END
+
+// TextualRole
+ROLE(TextualRole)
+ROLE_PROPERTY (TextualRole, fontName, std::string)
+ROLE_PROPERTY (TextualRole, fontSize, int) // unsigned int? size_t?
+ROLE_PROPERTY (TextualRole, backgroundColor, std::string)
+ROLE_PROPERTY (TextualRole, textColor, std::string)
+ROLE_PROPERTY (TextualRole, text, std::string)
+ROLE_END
+
+// GroupedRole
+ROLE(GroupedRole)
+ROLE_PROPERTY (GroupedRole, groupedParent, std::string)
+ROLE_PROPERTY (GroupedRole, groupedBrothers, AUI::StringList)
+ROLE_END
+
+// ContainerRole
+ROLE(ContainerRole)
+ROLE_PROPERTY (ContainerRole, containerChildren, AUI::StringList)
+ROLE_PROPERTY (ContainerRole, containerHasTags, bool)
+ROLE_PROPERTY (ContainerRole, containerTabLabel, AUI::StringList)
+ROLE_END
+
+// MenuRole
+ROLE(MenuRole)
+ROLE_PROPERTY (MenuRole, menuName, std::string)
+ROLE_PROPERTY (MenuRole, menuAction, bool)
+ROLE_END
+
+// DialogRole
+ROLE(DialogRole)
+ROLE_PROPERTY (DialogRole, tittle, std::string)
+ROLE_PROPERTY (DialogRole, movable, bool)
+ROLE_PROPERTY (DialogRole, resizable, bool)
+ROLE_PROPERTY (DialogRole, minimizable, bool)
+ROLE_PROPERTY (DialogRole, closable, bool)
+ROLE_PROPERTY (DialogRole, windowDecoration, bool)
+ROLE_END

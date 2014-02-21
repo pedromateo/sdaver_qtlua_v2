@@ -1,0 +1,118 @@
+format 58
+
+classcanvas 128013 class_ref 128013 // Csu_Server
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 18 177 2000
+end
+classcanvas 128141 class_ref 128141 // Csu_Client
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 167 362 2000
+end
+classcanvas 128269 class_ref 128269 // Csu_Comm
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 128 30 2000
+end
+classcanvas 128781 class_ref 128397 // Csu_Comm_Listener
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 461 67 2000
+end
+classcanvas 128909 class_ref 128525 // Csu_Server_Listener
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 362 235 2000
+end
+classcanvas 129037 class_ref 128653 // Csu_Client_Listener
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 469 419 2000
+end
+classcanvas 129165 class_ref 128781 // Csu_AbstractSocket
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 570 478 2000
+end
+classcanvas 132237 class_ref 128909 // Csu_AbstractSocket_Listener
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 533 302 2000
+end
+classcanvas 134413 class_ref 129037 // SocketImp
+  draw_all_relations default hide_attributes default hide_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_multiplicity default show_members_initialization default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_infonote default shadow default show_stereotype_properties default
+  xyz 610 662 2000
+end
+note 134669 "- Client y Server están separados.
+- Ambos utilizan una abstracción de socket.
+- Los métodos de la interfaz CommListener se pueden reutilizar tanto para obtener info del socket como para obtener info del client/server.
+- Alternativa: en vez de AbstractSocket, extender Server/Client."
+  xyzwh 7 688 2000 528 163
+relationcanvas 129293 relation_ref 128013 // <generalisation>
+  geometry VHV unfixed
+  from ref 128909 z 1999 to point 449 208
+  line 130957 z 1999 to point 594 208
+  line 131085 z 1999 to ref 128781
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129421 relation_ref 128141 // <generalisation>
+  geometry VHV unfixed
+  from ref 129037 z 1999 to point 553 209
+  line 131213 z 1999 to point 594 209
+  line 131341 z 1999 to ref 128781
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129549 relation_ref 128269 // <realization>
+  geometry VHV unfixed
+  from ref 128013 z 1999 to point 140 153
+  line 130701 z 1999 to point 178 153
+  line 130829 z 1999 to ref 128269
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129677 relation_ref 128397 // <realization>
+  geometry VHV unfixed
+  from ref 128141 z 1999 to point 231 153
+  line 130445 z 1999 to point 178 153
+  line 130573 z 1999 to ref 128269
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131469 relation_ref 128653 // <unidirectional association>
+  from ref 128013 z 1999 to ref 128909
+  role_a_pos 279 227 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131597 relation_ref 128781 // <unidirectional association>
+  from ref 128141 z 1999 to ref 129037
+  role_a_pos 386 412 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132365 relation_ref 129037 // <realization>
+  geometry VHV unfixed
+  from ref 132237 z 1999 to point 655 208
+  line 132749 z 1999 to point 594 208
+  line 132877 z 1999 to ref 128781
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 133517 relation_ref 129421 // <unidirectional association>
+  from ref 128269 z 1999 to point 3 50
+  line 133773 z 1999 to point 2 555
+  line 133645 z 1999 to ref 129165
+  role_a_pos 469 527 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 134285 relation_ref 129677 // <unidirectional association>
+  from ref 129165 z 1999 to ref 132237
+  role_a_pos 668 360 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 134541 relation_ref 129805 // <generalisation>
+  from ref 134413 z 1999 to ref 129165
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 135181 relation_ref 129933 // <generalisation>
+  from ref 128269 z 1999 to point 815 50
+  line 135309 z 1999 to point 815 320
+  line 135437 z 1999 to ref 132237
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end
