@@ -4,12 +4,11 @@
 #
 #-------------------------------------------------
 
-QT += core \
-    gui \
-    xml
+QT += core gui xml
 
 TARGET = sdaver
 TEMPLATE = lib
+DESTDIR = ../lib #relative to build directory
 
 DEFINES += SDAVER_LIBRARY
 
@@ -18,12 +17,7 @@ INCLUDEPATH += ./CSU_VVL-1.0-Linux/src/
 INCLUDEPATH += ./CSU_Qt-1.0-Linux/src/
 INCLUDEPATH += ./CSU_Base-1.2-Linux/src/
 
-LIBS += -lboost_thread-mt
-LIBS += -lboost_system-mt
-LIBS += -lboost_serialization-mt
-LIBS += -lboost_filesystem-mt
-LIBS += -lboost_date_time-mt
-LIBS += -lboost_regex-mt
+LIBS += -lboost_system -lboost_thread -lboost_filesystem -lboost_date_time -lboost_serialization -lboost_regex
 LIBS += -llua5.1
 LIBS += -lluabindd
 

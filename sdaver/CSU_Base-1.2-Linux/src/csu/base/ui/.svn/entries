@@ -1,43 +1,0 @@
-10
-
-dir
-9735
-svn+ssh://pedrolmn@merovingio.inf.um.es/opt/svn-csaesumu/anotaciones/validation/STVR_Jan14_experiment/sdaver/CSU_Base-1.2-Linux/src/csu/base/ui
-svn+ssh://pedrolmn@merovingio.inf.um.es/opt/svn-csaesumu
-
-
-
-2013-12-19T13:04:47.238053Z
-9667
-pedrolmn
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ba35cbf9-6f3f-4c47-8bc9-f733df4a0683
-
-abstract_ui_evaluator
-dir
-
-abstract_ui_roles
-dir
-
-abstract_ui_generator
-dir
-
-abstract_ui_datamodel
-dir
-
-abstract_ui_report
-dir
-
