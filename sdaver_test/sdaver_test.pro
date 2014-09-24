@@ -27,17 +27,10 @@ INCLUDEPATH += $$SDAVER_DIR/CSU_Base-1.2-Linux/src
 INCLUDEPATH += $$SDAVER_DIR/CSU_Qt-1.0-Linux/src
 INCLUDEPATH += $$SDAVER_DIR/CSU_VVL-1.0-Linux/src
 
-LIBS += -lboost_system-mt \
-#    -lboost_thread-mt \
-#    -lboost_serialization-mt \
-#    -lboost_filesystem-mt \
-#    -lboost_date_time-mt \
-#    -lboost_regex-mt \
-    -llua5.1 \
-    -lluabindd
-
-LIBS += -L$$SDAVER_DIR/lib/ \
-    -lsdaver
+#LIBS += -lboost_system -lboost_thread -lboost_filesystem -lboost_date_time -lboost_serialization -lboost_regex
+LIBS += -lboost_system
+LIBS += -llua5.1 -lluabindd
+LIBS += -L$$SDAVER_DIR/lib/ -lsdaver
 
 ## < VVL
 ##
