@@ -32,6 +32,8 @@ namespace qt_lua {
 QtLua_VerificationLayer::QtLua_VerificationLayer(VerificationContextPtr vc) : VerificationLayer(vc)
 {}
 
+QtLua_VerificationLayer::QtLua_VerificationLayer(VerificationContext& vc) : VerificationLayer(vc)
+{}
 
 QtLua_VerificationLayer::~QtLua_VerificationLayer(){}
 

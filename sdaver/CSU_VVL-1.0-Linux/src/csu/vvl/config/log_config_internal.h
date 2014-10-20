@@ -35,16 +35,12 @@ namespace log {
     /// vvl logs
     ///
 
-    /// Debug abs
-    typedef csu::base::log::logger<true> abs_log_type;
-    extern abs_log_type abs;
-
     /// Debug rules
-    typedef csu::base::log::logger<true> rules_log_type;
+    typedef csu::base::log::logger<false> rules_log_type;
     extern rules_log_type rules;
 
     /// Debug verif
-    typedef csu::base::log::logger<true> verif_log_type;
+    typedef csu::base::log::logger<false> verif_log_type;
     extern verif_log_type verif;
 
     ///

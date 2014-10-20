@@ -46,6 +46,7 @@ public:
       /// @param context is the verification context
       ///
     VerificationLayer(VerificationContextPtr context);
+    VerificationLayer(VerificationContext &context);
 
     virtual void updateRules();
     virtual void updateElements(const std::string & windowName);

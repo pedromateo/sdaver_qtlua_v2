@@ -5,7 +5,6 @@
 /// VVL >
 #include <csu/vvl/imps/gui_vlang/qtlua_verificationlayer.h>
 #include <csu/vvl/framework/vvl_verificationcontext.h>
-#include <csu/vvl/framework/vvl_genericeventabstractor.h>
 #include <csu/vvl/config/log_config_internal.h>
 
 
@@ -23,28 +22,27 @@ int main(int argc, char *argv[])
     //
     // VVL >
     /// create and fill the verification context
-    VerificationContextPtr vc(new VerificationContext());
+    VerificationContext vcontext;
     //Rules sources and reloading time
-    vc->addRuleSource("../rules/")
-            .updateRuleTime(10);
+    vcontext.addRuleSource("../rules/").updateRuleTime(10);
     //Trigger events
-    vc->triggerStopEvents(csu::vvl::framework::VVL_EVENT_MOUSECLICK)
+    vcontext.triggerStopEvents(csu::vvl::framework::VVL_EVENT_MOUSECLICK)
             .triggerWatchEvents(csu::vvl::framework::VVL_EVENT_FOCUSOUT);
     //Log stream
-    vc->addLogOutputStream(std::cout)
+    vcontext.addLogOutputStream(std::cout)
             .addLogOutputFile("/tmp/verification.log")
             .logFormat("[%tm] %wi at %en: %vr :: %fn");
     //GUI Iterventions
-    vc->interventionOnError(VVL_GUI_HIGHLIGHT_ERROR | VVL_GUI_HIGHLIGHT_RELATED
-                          | VVL_GUI_SHOW_ERROR_RULES)
-                   .interventionOnSuccess(VVL_GUI_CLEAR);
+    vcontext.interventionOnError(VVL_GUI_HIGHLIGHT_ERROR
+                  | VVL_GUI_HIGHLIGHT_RELATED | VVL_GUI_SHOW_ERROR_RULES)
+            .interventionOnSuccess(VVL_GUI_CLEAR);
 
     /// enable log (debug only)
     csu::vvl::config::log::LogConfigInternal::initialize();
 
     /// launch the framework
-    QtLua_VerificationLayer * vl = new QtLua_VerificationLayer(vc);
-    vl->init();
+    QtLua_VerificationLayer vlayer(vcontext);
+    vlayer.init();
 
     // < VVL
     //

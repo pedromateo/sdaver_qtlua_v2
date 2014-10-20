@@ -44,11 +44,11 @@ namespace csu {
             ///
 
             misc_log_type misc("misc",std::cout,false);
-            error_log_type error("error",std::cerr,false);
+            error_log_type error("error",std::cerr,true);
             comm_log_type comm("comm",std::cout,false);
             gui_log_type gui("gui",std::cout,false);
-            time_log_type time("time",std::cout,false);
             control_log_type control("control",std::cout,false);
+            time_log_type perf("perf",std::cout,true);
 
          }//namespace csu
       }//namespace base

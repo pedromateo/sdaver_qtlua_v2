@@ -35,6 +35,11 @@ VerificationLayer::VerificationLayer(VerificationContextPtr context)
     context_=context;
 }
 
+VerificationLayer::VerificationLayer(VerificationContext& context)
+{
+    context_= VerificationContextPtr(&context);
+}
+
 void VerificationLayer::init()
 {
     //Fixed creation order
@@ -60,7 +65,10 @@ void VerificationLayer::init()
     assert(context_->verificationEngine.get());
 
     createEventAbstractor();
-    assert(context_->eventAbstractor.get());    
+    assert(context_->eventAbstractor.get());
+
+    const boost::posix_time::ptime mst1 = boost::posix_time::microsec_clock::local_time();
+    // /////////////////////////////////////////////////////////////////////////
 
     //Loading rules from files
     context_->ruleManager->updateRules();
@@ -70,6 +78,15 @@ void VerificationLayer::init()
 
     //Linking loaded rules to existing widgets
     context_->ruleLinker->updateRuleLinkMap();
+
+    // /////////////////////////////////////////////////////////////////////////
+    const boost::posix_time::ptime mst2 = boost::posix_time::microsec_clock::local_time();
+    boost::posix_time::time_duration msdiff = mst2 - mst1;
+    unsigned long elapsed = msdiff.total_microseconds();
+    _log::perf << "// -----------------------------------------------------------------" << std::endl;
+    _log::perf << "// Initial loading performance test:" << std::endl;
+    _log::perf << "Loading time microsecs = " << elapsed << std::endl;
+    _log::perf << "// -----------------------------------------------------------------" << std::endl;
 
     //Installing the Event Abstractor
     context_->eventAbstractor->install();
@@ -90,7 +107,7 @@ void VerificationLayer::init()
 }
 
 void VerificationLayer::updateRules()
-{    
+{
     _ilog::verif <<"(VerificationLayer::updateRules) Updating rules"<<std::endl;
 
     //Linking loaded rules to existing widgets

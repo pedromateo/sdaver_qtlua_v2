@@ -50,27 +50,27 @@ namespace log {
 ///
 
 /// Debug misc
-typedef csu::base::log::logger<true> misc_log_type;
+typedef csu::base::log::logger<false> misc_log_type;
 extern misc_log_type misc;
 
 /// Debug error
-typedef csu::base::log::logger<true> error_log_type;
+typedef csu::base::log::logger<false> error_log_type;
 extern error_log_type error;
 
 /// Debug comm
-typedef csu::base::log::logger<true> comm_log_type;
+typedef csu::base::log::logger<false> comm_log_type;
 extern comm_log_type comm;
 
 /// Debug gui
-typedef csu::base::log::logger<true> gui_log_type;
+typedef csu::base::log::logger<false> gui_log_type;
 extern gui_log_type gui;
 
-/// Debug time
+/// Debug performance
 typedef csu::base::log::logger<true> time_log_type;
-extern time_log_type time;
+extern time_log_type perf;
 
 /// Debug control
-typedef csu::base::log::logger<true> control_log_type;
+typedef csu::base::log::logger<false> control_log_type;
 extern control_log_type control;
 
 }//namespace csu

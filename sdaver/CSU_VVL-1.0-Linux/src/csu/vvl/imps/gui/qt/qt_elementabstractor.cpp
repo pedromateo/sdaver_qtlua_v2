@@ -51,7 +51,7 @@ using namespace csu::vvl::framework;
 //In this constructor we explicitly store de class name of the registrable classes
 QtElementAbstractor::QtElementAbstractor(VerificationContextPtr context):GenericElementAbstractor(context)
 {
-    _ilog::abs <<"QtElementAbstractor: Registering Classes"<<std::endl;
+    _log::gui <<"QtElementAbstractor: Registering Classes"<<std::endl;
 
     registerClass(new std::string(QSpinBox::staticMetaObject.className()));
     registerClass(new std::string(QDoubleSpinBox::staticMetaObject.className()));
@@ -152,7 +152,7 @@ void QtElementAbstractor::updateElements(void)
     elementMap_.clear();
     elementNameSet_.clear();
 
-    _ilog::abs <<"(QtElementAbstractor::updateElements) Filtering GUI Elements."<<std::endl;
+    _log::gui <<"(QtElementAbstractor::updateElements) Filtering GUI Elements."<<std::endl;
 
     //Getting all widgets from the application
     foreach ( QWidget *w, QApplication::allWidgets() )
@@ -198,7 +198,7 @@ void QtElementAbstractor::updateElements(void)
                 continue;
             }
 
-            std::cout << "@@Adding: " << elementName.toStdString() << std::endl;
+            _log::gui << "@@Adding: " << elementName.toStdString() << std::endl;
 
             //Registering the abstraction result inside map indexed by the abstraction result id
             elementMap_[abres->id()]=abres;
@@ -244,7 +244,7 @@ const GenericAbstractionResult * QtElementAbstractor::getElementAbstraction(cons
 void QtElementAbstractor::listElementsName()
 {
 
-    _ilog::abs << "(QtElementAbstractor::listElementsName)"<<std::endl;
+    _log::gui << "(QtElementAbstractor::listElementsName)"<<std::endl;
 
     //Getting all widgets from the application
     foreach ( QWidget *w, QApplication::allWidgets() )
@@ -283,7 +283,7 @@ void QtElementAbstractor::listElementsName()
                 continue;
             }
             //Registering the abstraction result inside map indexed by the abstraction result id
-            _ilog::abs << elementName.toStdString() << std::endl;
+            _log::gui << elementName.toStdString() << std::endl;
         }
     }
 }

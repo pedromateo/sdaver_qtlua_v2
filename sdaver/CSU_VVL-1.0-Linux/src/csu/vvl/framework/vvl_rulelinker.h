@@ -73,6 +73,7 @@ private:
     /// debug method for printing the rules
     ///
     void printLinkedRules();
+    void printLinkedRulesSummary();
 
 };
 

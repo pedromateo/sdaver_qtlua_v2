@@ -394,7 +394,7 @@ struct sensitive_traits<QTimeEdit>
         AUR::TextualRole tr(aw);
         aw->addRole<AUR::TextualRole>();
         tr.fontName(w_->font().family().toStdString());
-        tr.fontSize(w_->font().pointSize());        
+        tr.fontSize(w_->font().pointSize());
         tr.backgroundColor(csu::qt::QWidgetUtils::getWidgetBackgroundColor(w_).toStdString());
         tr.textColor(csu::qt::QWidgetUtils::getWidgetForegroundColor(w_).toStdString());
         tr.text(w_->time().toString().toStdString());
@@ -431,7 +431,6 @@ struct sensitive_traits<QSpinBox>
     // Default implementation
     static AUI::AbstractWidget* abstractRepresentation(QWidget* w)
     {
-        //std::cout << "asd" << std::endl;
 
         AUI::AbstractWidget* aw = new AUI::AbstractWidget();
         //abstract widget (always)
@@ -595,7 +594,7 @@ struct sensitive_traits<QLineEdit>
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         (dynamic_cast<QLineEdit*>(w))->setText(s.c_str());
     }
 
@@ -708,7 +707,7 @@ struct sensitive_traits<QPlainTextEdit>
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         (dynamic_cast<QPlainTextEdit*>(w))->setPlainText(s.c_str());
     }
 
@@ -759,13 +758,13 @@ struct sensitive_traits<QSlider>
 {
     // Empty implementation for the default value
     static std::string sensitiveValue(QWidget* w)
-    {     
+    {
         return boost::lexical_cast<std::string>(dynamic_cast<QSlider*>(w)->value());
     }
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         dynamic_cast<QSlider*>(w)->setValue(boost::lexical_cast<int>(s));
     }
 
@@ -806,13 +805,13 @@ struct sensitive_traits<QScrollBar>
 {
     // Empty implementation for the default value
     static std::string sensitiveValue(QWidget* w)
-    {        
+    {
         return boost::lexical_cast<std::string>(dynamic_cast<QScrollBar*>(w)->value());
     }
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         dynamic_cast<QScrollBar*>(w)->setValue(boost::lexical_cast<int>(s));
     }
 
@@ -853,13 +852,13 @@ struct sensitive_traits<QProgressBar>
 {
     // Empty implementation for the default value
     static std::string sensitiveValue(QWidget* w)
-    {        
+    {
         return boost::lexical_cast<std::string>(dynamic_cast<QProgressBar*>(w)->value());
     }
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {     
+    {
         dynamic_cast<QProgressBar*>(w)->setValue(boost::lexical_cast<int>(s));
     }
 
@@ -916,7 +915,7 @@ struct sensitive_traits<QLabel>
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         (dynamic_cast<QLabel*>(w))->setText(s.c_str());
     }
 
@@ -964,7 +963,7 @@ struct sensitive_traits<QTextBrowser>
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         (dynamic_cast<QTextBrowser*>(w))->setPlainText(s.c_str());
     }
 
@@ -1011,13 +1010,13 @@ struct sensitive_traits<QPushButton>
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         (dynamic_cast<QPushButton*>(w))->setText(s.c_str());
     }
 
     // Default implementation
     static AUI::AbstractWidget* abstractRepresentation(QWidget* w)
-    {        
+    {
         AUI::AbstractWidget* aw = new AUI::AbstractWidget();
         //abstract widget (always)
         QPushButton* w_ = dynamic_cast<QPushButton*>(w);
@@ -1242,7 +1241,7 @@ struct sensitive_traits<QFrame>
 
     // Empty application of the sensitive value
     static void applySensitiveValue(QWidget* w, const std::string& s)
-    {        
+    {
         (dynamic_cast<QFrame*>(w))->setObjectName(s.c_str());
     }
 
@@ -1731,7 +1730,7 @@ QWidgetAdapterManager::abstractRepresentation(QWidget* w)
     //QT BUG Overcoming
     //In QT, the className of QMainWindow objects return "MainWindow" instead of "QMainWindow",
     //therefore in order to override this behaviour we implement this adaption
-    std::string wclass=w->metaObject()->className();    
+    std::string wclass=w->metaObject()->className();
     if (wclass=="MainWindow")
         return adapters["QMainWindow"].arf (w);
     else

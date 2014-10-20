@@ -38,7 +38,7 @@ namespace csu {
                 updateRuleTime_=4;
 
                 //log stuff
-                addLogOutputStream(std::cout);
+                //addLogOutputStream(std::cout);
                 logFiles_.clear();
                 logFormat("[%tm] %wi at %en: %vr");
 

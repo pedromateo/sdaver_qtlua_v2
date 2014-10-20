@@ -64,8 +64,10 @@ namespace qt {
 
     //FIXME DELETE
     private:
-        typedef std::list<unsigned long int> TimeList;
-        TimeList timeList_,timeListQt_;
+        unsigned long long totalTimeUs_;
+        unsigned long totalTimeCountUs_;
+        unsigned long long totalVSs_;
+        unsigned long totalTrueVSs_;
 
     };
 

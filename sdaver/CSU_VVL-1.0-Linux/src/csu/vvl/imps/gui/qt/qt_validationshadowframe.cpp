@@ -38,7 +38,7 @@ using namespace csu::qt::painters;
 using namespace csu::qt::widgets::shadow_frame;
 
 Qt_ValidationShadowFrame::Qt_ValidationShadowFrame(QWidget *parent, Qt::WindowFlags  flags,QColor * color,bool startPainting)
-:ShadowFrame(parent,flags,color,startPainting)
+    :ShadowFrame(parent,flags,color,startPainting)
 {}
 
 void Qt_ValidationShadowFrame::paintShadowWidget(ShadowWidget * swidget,const QWidgetList *wlist)
@@ -48,7 +48,7 @@ void Qt_ValidationShadowFrame::paintShadowWidget(ShadowWidget * swidget,const QW
     //Insert an associate all related widget with the decorator widget itself
     foreach (QWidget *w,*wlist)
     {
-         decorationMap_[index].insert(w);
+        decorationMap_[index].insert(w);
     }
 }
 
@@ -88,24 +88,26 @@ void Qt_ValidationShadowFrame::addRelated(const ShadowWidget * sw,const QWidgetL
 
 void Qt_ValidationShadowFrame::addMessage(const QWidget * interacted,const Rule * failedRule,const QWidgetList * related)
 {
+    std::string rulesummary = const_cast<Rule *>(failedRule)->rawRule();
+    rulesummary = rulesummary.substr(0,rulesummary.find_first_of('\n'));
+
     //If interacted widget has a Message, then the rule code is added to the existing content
     //else a new message widget is created
-     if (messageMap_[const_cast<QWidget *>(interacted)]==NULL){
-         //Creating the message widget
-         MOMessage * mom=new MOMessage(const_cast<Rule *>(failedRule)->rawRule(),this,const_cast<QWidget *>(interacted));
-         //Addding to the shadow layer
-         this->paintShadowWidget(mom,related);
-         //adding to the search structure
-         messageMap_[const_cast<QWidget *>(interacted)]=mom;
-
-     }else{
-
-         MOMessage * mom=dynamic_cast<MOMessage *>(messageMap_[const_cast<QWidget *>(interacted)]);
-         //adding the code to the existing content         
-         mom->addMessage(const_cast<Rule *>(failedRule)->rawRule());
-         //adding new related widgets
-         this->addRelated(mom,related);
-     }
+    MOMessage* mom = dynamic_cast<MOMessage *>(messageMap_[const_cast<QWidget *>(interacted)]);
+    if (mom == NULL){
+        //Creating the message widget
+        mom = new MOMessage(rulesummary,this,const_cast<QWidget *>(interacted));
+        //Addding to the shadow layer
+        this->paintShadowWidget(mom,related);
+        //adding to the search structure
+        messageMap_[const_cast<QWidget *>(interacted)]=mom;
+    }
+    else{
+        //adding the code to the existing content
+        mom->addMessage(rulesummary);
+        //adding new related widgets
+        this->addRelated(mom,related);
+    }
 }
 
 
@@ -115,12 +117,12 @@ void Qt_ValidationShadowFrame::removeMessages()
     messageMap_.clear();
 
     //Deleting all Message widgets from the shadow layer
-    DecorationMap::iterator it=decorationMap_.begin();
+    DecorationMap::iterator it = decorationMap_.begin();
     for (;it!=decorationMap_.end();it++)
     {
-         MOMessage * mom=dynamic_cast<MOMessage *>(it->first.get());
-         if (mom)
-             decorationMap_.erase(it);
+        MOMessage * mom=dynamic_cast<MOMessage *>(it->first.get());
+        if (mom)
+            decorationMap_.erase(it);
     }
 }
 

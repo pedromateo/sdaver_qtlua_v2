@@ -49,6 +49,7 @@ public:
     ///
 
     QtLua_VerificationLayer(VerificationContextPtr);
+    QtLua_VerificationLayer(VerificationContext&);
     virtual ~QtLua_VerificationLayer();
 
     virtual void updateElements(const std::string & windowName);

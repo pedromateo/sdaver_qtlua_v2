@@ -95,7 +95,7 @@ public:
 
     // Service Methods
     bool updateRules();
-    const RuleList * getRules();
+    const RuleList* getRules();
 
     // Print Methods
     void printFiles(std::ostream& os);
@@ -126,25 +126,26 @@ private:
     /// list of loaded rules
     RuleList ruleList_;
     /// Attributes
-    std::map<std::string,std::string> files; // map of <files names,last wirte date>
-    WatchDog * watchdog_;
+    std::map<std::string,std::string> filedatemap_; // map of <filename,last write date>
+    std::map<std::string,std::string> filebasedirmap_; // map of <filename,basedir>
+    WatchDog* watchdog_;
     bool locked_;
     bool initiated_;
 
 private:
     // Supporting Methods
-    void loadFiles(StringVector);
-    bool loadSingleFile(boost::filesystem::path);
-    bool loadDirectory(boost::filesystem::path path);
-    void reloadSingleFile(boost::filesystem::path);
-    bool hasChanged(const std::string&,const std::string&);
-    void createNewRule(const std::string&,const std::string&,const std::string&,boost::filesystem::path);
-    std::string getFileLastDate(boost::filesystem::path);
+    std::string _extractNameSpace(boost::filesystem::path path, boost::filesystem::path basedir);
+    void _loadRuleDirectories(StringVector);
+    bool _loadSingleFile(boost::filesystem::path, boost::filesystem::path basedir);
+    bool _loadDirectory(boost::filesystem::path path, boost::filesystem::path basedir);
+    void _reloadSingleFile(boost::filesystem::path, boost::filesystem::path basedir);
+    bool _hasChanged(const std::string&,const std::string&);
+    void _createNewRule(const std::string&, const std::string&, const std::string&, boost::filesystem::path, boost::filesystem::path basedir);
+    std::string _getFileLastDate(boost::filesystem::path);
 
     void lock();
     void unlock();
     bool locked();
-
 };
 
 } //framework

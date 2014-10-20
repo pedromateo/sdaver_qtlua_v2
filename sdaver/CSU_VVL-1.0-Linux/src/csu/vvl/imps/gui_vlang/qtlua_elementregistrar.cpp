@@ -33,7 +33,7 @@ namespace qt_lua {
 
 
 QtLua_ElementRegistrar::QtLua_ElementRegistrar(VerificationContextPtr context)
-:GenericElementRegistrar(context)
+    :GenericElementRegistrar(context)
 {
     L_=NULL;
 }
@@ -74,27 +74,27 @@ boost::any QtLua_ElementRegistrar::updateGUIElementRegister()
     ElementMap elementMap = context_->elementAbstractor->getElements();
     ElementMap::const_iterator itelement = elementMap.begin();
 
-     for (;itelement!=elementMap.end();itelement++)
+    for (;itelement!=elementMap.end();itelement++)
     {
-         boost::any ob=itelement->second->object();
+        boost::any ob=itelement->second->object();
         if (ob.type()==typeid(QLineEdit *))
         {
             global[itelement->first] = boost::any_cast<QLineEdit *>(ob);
         }else if (ob.type()==typeid(QTextEdit *))
         {
-           global[itelement->first] = boost::any_cast<QTextEdit *>(ob);
+            global[itelement->first] = boost::any_cast<QTextEdit *>(ob);
         }else if (ob.type()==typeid(QPlainTextEdit *))
         {
-           global[itelement->first] = boost::any_cast<QPlainTextEdit *>(ob);
+            global[itelement->first] = boost::any_cast<QPlainTextEdit *>(ob);
         }else if (ob.type()==typeid(QSpinBox *))
         {
-           global[itelement->first] = boost::any_cast<QSpinBox *>(ob);
+            global[itelement->first] = boost::any_cast<QSpinBox *>(ob);
         }else if (ob.type()==typeid(QComboBox *))
         {
             global[itelement->first] = boost::any_cast<QComboBox *>(ob);
         }else if (ob.type()==typeid(QPushButton *))
         {
-           global[itelement->first] = boost::any_cast<QPushButton *>(ob);
+            global[itelement->first] = boost::any_cast<QPushButton *>(ob);
         }else if (ob.type()==typeid(QCheckBox *))
         {
             global[itelement->first] = boost::any_cast<QCheckBox *>(ob);

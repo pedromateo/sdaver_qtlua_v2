@@ -33,7 +33,7 @@ namespace lua {
 Lua_VerificationEngine::Lua_VerificationEngine(VerificationContextPtr context)
 :GenericVerificationEngine(context)
 {
-    luaInited_ = false;    
+    luaInited_ = false;
 }
 
 ///
@@ -44,7 +44,7 @@ void Lua_VerificationEngine::initialize()
 {
     ///
     /// Init Lua interpeter
-    ///    
+    ///
     state_ = lua_open();
     luaL_openlibs(state_);
     luabind::open(state_);  // extra for luabind
@@ -76,7 +76,7 @@ bool Lua_VerificationEngine::handleEvent(const GenericEventAbstractionResult * e
         //context_->logManager->addToLog(event,element,*it,result);
         //FIXME this case represents the situation when the element is inside the elements list that
         //we want to examine but there is no rule associated to it. This situation allow us to
-        //detect this and alert the srs expert        
+        //detect this and alert the srs expert
         _ilog::verif <<"(Lua_VerificationEngine::handleEvent) No rules for " << element <<std::endl;
         return true;
     }
@@ -89,13 +89,13 @@ bool Lua_VerificationEngine::handleEvent(const GenericEventAbstractionResult * e
 
     _ilog::verif <<"(Lua_VerificationEngine::handleEvent) Interacted Widget "<<element<<std::endl;
 
-    // Verificate the rules and take actions with the result
+    // Verify the rules and take actions with the result
     for(it = rl->begin() ; it != rl->end() ; it++){
 
         std::string code= (*it)->code();
         code= code + "\n return "+ (*it)->id()+"()";
 
-        _ilog::verif <<"(Lua_VerificationEngine::handleEvent) Checking Rule: \n "<<code<<std::endl;        
+        _ilog::verif <<"(Lua_VerificationEngine::handleEvent) Checking Rule: \n "<<code<<std::endl;
 
         try
         {
@@ -126,14 +126,12 @@ bool Lua_VerificationEngine::handleEvent(const GenericEventAbstractionResult * e
 
     VerificationResult vr(event,element,obj,successRules,failedRules);
     // Actions with the result
-    context_->logManager->doLog(vr);    
+    context_->logManager->doLog(vr);
     context_->guiInterventor->doAction(vr);
 
 
-    if (verificationRes)
-        _ilog::verif <<"Verification Successfull!!"<<std::endl;
-    else
-        _ilog::verif <<"Verification Unsuccessfull!!"<<std::endl;    
+    if (verificationRes) _ilog::verif <<"Verification Successfull!!"<<std::endl;
+    else _ilog::verif <<"Verification Unsuccessfull!!"<<std::endl;
 
     return verificationRes;
 }

@@ -31,7 +31,6 @@ namespace log {
     ///
 
 
-    abs_log_type abs("abs");
     rules_log_type rules("rules");
     verif_log_type verif("verif");
 
@@ -46,7 +45,8 @@ namespace log {
 
         //we'll use
 //        _log::misc << csu::base::log::on;
-//        _log::error << csu::base::log::on;
+        _log::error << csu::base::log::on;
+        _log::perf << csu::base::log::on;
 //        _log::gui << csu::base::log::on;
 //        //we won't use
 //        _log::comm << csu::base::log::off;
@@ -56,8 +56,7 @@ namespace log {
 //        ///
 //        /// internal logs
 //        ///
-        _ilog::abs.add_stream (std::cout);
-        _ilog::abs << csu::base::log::on;
+
         _ilog::rules.add_stream (std::cout);
         _ilog::rules << csu::base::log::on;
 //        _ilog::verif.add_stream (std::cout);
